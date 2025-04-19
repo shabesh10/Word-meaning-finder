@@ -31,8 +31,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       showDefinitionPopup(`Looking up: "${selectedText}"`);
       fetchDefinition(selectedText).then((data) => {
         if (data && data[0] && data[0].meanings) {
-          const definition = data[0].meanings[0].definitions[0].definition;
-          showDefinitionPopup(`Definition of "${selectedText}":\n${definition}`);
+          let [json_obj] = data;
+          let { meanings } = json_obj;
+          let [idx_0,,idx_2] = meanings;
+          let { definitions } = idx_0;
+          let [{ definition }] = definitions;
+          // console.log(definition);
+          let example =
+            idx_2?.definitions?.[0]?.example || "Example not available.";
+          // console.log(example);
+          showDefinitionPopup(
+            `Definition of "${selectedText}": ${definition}\nExample: ${example}`
+          );
         } else {
           showDefinitionPopup(`No definition found for "${selectedText}".`);
         }
