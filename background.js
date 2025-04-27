@@ -1,4 +1,3 @@
-// background.js
 // Acts as the "brain" of the Chrome Extension.
 // Runs in the background and listens for events (e.g., installation, context menu clicks).
 // Handles logic that doesn't directly interact with the web page.

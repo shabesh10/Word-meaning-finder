@@ -1,4 +1,3 @@
-// content.js
 /*
 Runs in the context of the web page.
 Directly interacts with the DOM (Document Object Model) of the page.
@@ -33,13 +32,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (data && data[0] && data[0].meanings) {
           let [json_obj] = data;
           let { meanings } = json_obj;
-          let [idx_0,,idx_2] = meanings;
+          let [idx_0,idx_1,idx_2] = meanings;
           let { definitions } = idx_0;
           let [{ definition }] = definitions;
           // console.log(definition);
-          let example =
-            idx_2?.definitions?.[0]?.example || "Example not available.";
+          let example1 =
+            idx_0?.definitions?.[0]?.example
           // console.log(example);
+          let example2 = idx_1?.definitions?.[0]?.example
+          let example3 = idx_2?.definitions?.[0]?.example
+          let example = example1.length != 0 ? example1 : (example2.length != 0 ? example2 : (example3.length != 0 ? example3 : "Example not available."))
           showDefinitionPopup(
             `Definition of "${selectedText}": ${definition}\nExample: ${example}`
           );
